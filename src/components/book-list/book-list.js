@@ -10,18 +10,19 @@ import "./book-list.css"
 
 class BookList extends Component {
   componentDidMount() {
-    const { bookstoreService } = this.props
-    const data = bookstoreService.getBooks()
-    this.props.booksLoaded(data)
+    const { bookstoreService, booksLoaded } = this.props
+    bookstoreService.getBooks().then(data => {
+      booksLoaded(data)
+    })
   }
 
   render() {
     const { books } = this.props
     return (
-      <ul>
+      <ul className="book-list">
         {books.map(book => {
           return (
-            <li key={book.id}>
+            <li key={book.id} className="book-list-item-container">
               <BookListItem book={book} />
             </li>
           )

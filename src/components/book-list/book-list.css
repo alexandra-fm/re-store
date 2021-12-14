@@ -1,0 +1,14 @@
+.book-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  list-style: none;
+}
+.book-list .book-list-item-container{
+  width: 350px;
+  margin: 15px 0;
+  padding: 10px;
+  border-radius: 0.25rem;
+  box-shadow: 0px 0px 3px 0px rgba(15, 41, 52, 0.3);
+}
