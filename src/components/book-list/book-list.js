@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import { withBookstoreService } from "../hoc"
 import BookListItem from "../book-list-item/book-list-item.js"
-import { booksLoaded, booksRequested, booksError } from "../../actions"
+import { fetchBooks } from "../../actions"
 import { compose } from "../../utils"
 import Spinner from "../spinner"
 import ErrorIndicator from "../error-indicator/"
@@ -20,15 +20,17 @@ class BookList extends Component {
     if (error) return <ErrorIndicator />
     if (loading) return <Spinner />
     return (
-      <ul className="book-list">
-        {books.map(book => {
-          return (
-            <li key={book.id} className="book-list-item-container">
-              <BookListItem book={book} />
-            </li>
-          )
-        })}
-      </ul>
+      <>
+        <ul className="book-list">
+          {books.map(book => {
+            return (
+              <li key={book.id} className="book-list-item-container">
+                <BookListItem book={book} />
+              </li>
+            )
+          })}
+        </ul>
+      </>
     )
   }
 }
@@ -40,15 +42,7 @@ const mapStateToProps = ({ books, loading, error }) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const { bookstoreService } = ownProps
   return {
-    fetchBooks: () => {
-      dispatch(booksRequested())
-      bookstoreService
-        .getBooks()
-        .then(data => {
-          dispatch(booksLoaded(data))
-        })
-        .catch(err => dispatch(booksError(err)))
-    },
+    fetchBooks: fetchBooks(bookstoreService, dispatch),
   }
 }
 
