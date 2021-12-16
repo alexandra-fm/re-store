@@ -71,7 +71,7 @@ const ShoppingCartTable = ({
   )
 }
 
-const mapStateToProps = ({ cartItems, oredrTotal }) => {
+const mapStateToProps = ({ shoppingCart: { cartItems, oredrTotal } }) => {
   return {
     items: cartItems,
     total: oredrTotal,
